@@ -6,7 +6,7 @@ import PageLink from "./components/links/PageLink";
 import Icon from "./components/Icon/Icon";
 import FormInput from "./components/Inputs/FormInput";
 import CustomSelect from "./components/Inputs/CustomSelect";
-import Theme from "./components/Buttons/Theme/Theme";
+import ThemeButton from "./components/Buttons/Theme/Theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,10 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Providers>
-        <body className={`${inter.className} bg-slate900 pt-5`}>
+      <body className={`${inter.className}  pt-5`}>
+        <Providers>
           <nav className="font-medium container flex items-center justify-between mx-auto">
-            <ul className="text-white100 text-1xl flex">
+            <ul className=" text-1xl flex">
               <li>
                 <PageLink id="coinsLink" href="/" text="Coins" />
               </li>
@@ -38,7 +38,7 @@ export default function RootLayout({
               </li>
             </ul>
 
-            <form className="text-white100 flex gap-5" action="">
+            <form className=" flex gap-5" action="">
               <div className="relative flex items-center">
                 <Icon
                   className="text-xl absolute ml-2.5"
@@ -54,12 +54,12 @@ export default function RootLayout({
               </div>
 
               <CustomSelect />
-              <Theme />
+              <ThemeButton />
             </form>
           </nav>
           {children}
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }
