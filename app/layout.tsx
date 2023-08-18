@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-slate900`}>
         <nav className="font-medium container flex items-center justify-between mx-auto">
           <ul className="text-white100 text-1xl flex">
             <li>
