@@ -6,7 +6,7 @@ import PageLink from "./components/links/PageLink";
 import Icon from "./components/Icon/Icon";
 import FormInput from "./components/Inputs/FormInput";
 import CustomSelect from "./components/Inputs/CustomSelect";
-import Theme from "./components/Theme/Theme";
+import Theme from "./components/Buttons/Theme/Theme";
 
 const inter = Inter({ subsets: ["latin"] });
 
