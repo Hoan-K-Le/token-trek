@@ -11,6 +11,7 @@ const config: Config = {
     extend: {
       colors: {
         white100: "#ffffff",
+        grey100: "#FCFCFC",
         green200: "#00FC2A",
         slate700: "#2C2F36",
         slate800: "#1F2128",
