@@ -16,7 +16,7 @@ export default function FormInput({
         {label}
       </label>
       <input
-        className="  py-3 px-10 rounded-lg"
+        className="bg-grey100 dark:bg-slate700 py-3 px-10 rounded-lg"
         id={id}
         type={type}
         name={name}

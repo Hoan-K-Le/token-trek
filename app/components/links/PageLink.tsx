@@ -25,7 +25,7 @@ export default function PageLink({ text, href, id }: PageLinkProps) {
     <Link
       id={id}
       ref={linkRef}
-      className=" focus:outline-none flex items-center py-2 px-7 rounded-lg"
+      className="focus:bg-grey100 dark:focus:bg-slate700 focus:outline-none flex items-center py-2 px-7 rounded-lg"
       href={href}
     >
       {text}
