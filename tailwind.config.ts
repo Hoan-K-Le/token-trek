@@ -17,6 +17,9 @@ const config: Config = {
         slate800: "#1F2128",
         slate900: "#191b1f",
       },
+      maxWidth: {
+        "3.5xl": "52.1875rem",
+      },
     },
   },
   plugins: [],
