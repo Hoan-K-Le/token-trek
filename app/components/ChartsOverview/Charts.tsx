@@ -9,7 +9,7 @@ export default function ChartsOverview() {
         <div className="bg-slate900 max-w-3.5xl max-h-md">
           <p>BTC</p>
           <p>$13.431 mln</p>
-          <p>Jun 14, 2021</p>
+          <p>Jun 21, 2021</p>
         </div>
 
         <div className="bg-slate900 max-w-3.5xl max-h-md">
