@@ -11,7 +11,7 @@ export default function CustomSelect() {
         <Icon iconVariant="chevDown" className="dark:text-green200" />
       </button>
 
-      <div className="bg-grey100 dark:bg-slate700 absolute w-full right-0 rounded-lg top-12">
+      <div className="bg-grey100 dark:bg-slate700 absolute w-full right-0 rounded-lg top-12 invisible">
         <ul className="text-center">
           <li>
             <button>USD</button>
