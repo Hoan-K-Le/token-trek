@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className}  pt-5`}>
         <Providers>
-          <nav className="font-medium container flex items-center justify-between mx-auto">
+          <nav className="font-medium container flex items-center justify-between mx-auto mb-4">
             <ul className=" text-1xl flex">
               <li>
                 <PageLink id="coinsLink" href="/" text="Coins" />
