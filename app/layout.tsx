@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Providers from "./providers";
 import PageLink from "./components/links/PageLink";
 import Icon from "./components/Icon/Icon";
@@ -8,7 +8,10 @@ import FormInput from "./components/Inputs/FormInput";
 import CustomSelect from "./components/Inputs/CustomSelect";
 import ThemeButton from "./components/Buttons/Theme/Theme";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
   title: "Token Trek",
@@ -22,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}  pt-5`}>
+      <body className={`${poppins.className}  pt-5`}>
         <Providers>
           <nav className="font-medium container flex items-center justify-between mx-auto mb-4">
             <ul className=" text-1xl flex">
