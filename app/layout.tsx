@@ -25,10 +25,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.className}  pt-5`}>
+      <body className={`${poppins.className}  pt-5 px-2`}>
         <Providers>
-          <nav className="font-medium container flex items-center justify-between mx-auto mb-4">
-            <ul className=" text-1xl flex">
+          <nav className="font-medium flex items-center justify-between max-w-8xl pl-24 mb-4 mx-auto">
+            <ul className="text-1xl flex">
               <li>
                 <PageLink id="coinsLink" href="/" text="Coins" />
               </li>
