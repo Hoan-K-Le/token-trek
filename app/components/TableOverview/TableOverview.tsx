@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Tables } from '@/app/contexts/Tables'
 import { Line } from 'react-chartjs-2'
 import Icon from '../Icon/Icon'
+import PageLink from '../links/PageLink'
 import {
   Chart as ChartJS,
   Title,
@@ -67,6 +68,7 @@ export default function TableOverview() {
           borderColor: avgData < 0 ? 'red' : 'green',
           pointRadius: 0,
           borderWidth: 2,
+          tension: 0.4,
           pointBackgroundColor: 'transparent',
           pointBorderColor: 'transparent',
           hoverPointRadius: 0,
@@ -81,9 +83,7 @@ export default function TableOverview() {
         display: false,
       },
     },
-    line: {
-      lineTension: 0.8,
-    },
+
     scales: {
       y: {
         display: false,
@@ -152,16 +152,17 @@ export default function TableOverview() {
                     <p>{coin.market_cap_rank}</p>
                   </td>
                   <td className="pl-9 py-10 flex items-center">
-                    <button className="flex justify-center gap-2">
-                      <img
-                        className="w-[25px] h-[25px]"
-                        src={coin.image}
-                        alt="coin-img"
-                      />
-
-                      <span>{coin.name}</span>
-                      <span>({coin.symbol.toUpperCase()})</span>
-                    </button>
+                    <PageLink href="../pages/CoinDetail" id={coin.id}>
+                      <button className="flex justify-center gap-2">
+                        <img
+                          className="w-[25px] h-[25px]"
+                          src={coin.image}
+                          alt="coin-img"
+                        />
+                        <span>{coin.name}</span>
+                        <span>({coin.symbol.toUpperCase()})</span>
+                      </button>
+                    </PageLink>
                   </td>
                   <td className="py-4">
                     ${coin.current_price.toLocaleString('en-US')}
@@ -239,9 +240,9 @@ export default function TableOverview() {
                           </div>
                         </div>
                       </div>
-                      <div className="w-full h-[10px] rounded-xl bg-yellow-300">
+                      <div className="w-full h-[10px] rounded-xl  bg-yellow-300">
                         <div
-                          className="h-[10px] rounded-xl bg-green-300"
+                          className="h-[10px] rounded-xl  bg-green-300"
                           style={{
                             width: `${progressBar(
                               coin.total_volume,
