@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className}  pt-5`}>
+      <body className={`${inter.className} overflow-x-hidden  pt-5`}>
         <Providers>
           <nav className="font-medium container flex items-center justify-between mx-auto mb-4">
             <ul className=" text-1xl flex">

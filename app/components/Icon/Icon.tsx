@@ -1,11 +1,15 @@
-import { CiSearch } from "react-icons/ci";
-import { PiCurrencyDollarSimpleBold } from "react-icons/pi";
-import { BiSolidChevronDown } from "react-icons/bi";
-import { BsSunFill, BsMoonFill } from "react-icons/bs";
+import { CiSearch } from 'react-icons/ci'
+import {
+  PiCurrencyDollarSimpleBold,
+  PiCaretUpBold,
+  PiCaretDownBold,
+} from 'react-icons/pi'
+import { BiSolidChevronDown } from 'react-icons/bi'
+import { BsSunFill, BsMoonFill } from 'react-icons/bs'
 
 type Icons = {
-  [key: string]: React.ElementType<any>;
-};
+  [key: string]: React.ElementType<any>
+}
 
 const icons: Icons = {
   search: CiSearch,
@@ -13,14 +17,16 @@ const icons: Icons = {
   chevDown: BiSolidChevronDown,
   sun: BsSunFill,
   moon: BsMoonFill,
-};
+  arrowUp: PiCaretUpBold,
+  arrowDown: PiCaretDownBold,
+}
 
 type props = {
-  iconVariant: string;
-  className?: string;
-};
+  iconVariant: string
+  className?: string
+}
 
 export default function Icon({ iconVariant, className }: props) {
-  const IconVariant = icons[iconVariant];
-  return <IconVariant className={className} type={iconVariant} />;
+  const IconVariant = icons[iconVariant]
+  return <IconVariant className={className} type={iconVariant} />
 }
