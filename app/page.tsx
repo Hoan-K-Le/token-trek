@@ -1,4 +1,5 @@
-import ChartsOverview from "./components/ChartsOverview/Charts";
+import ChartsOverview from './components/ChartsOverview/Charts'
+import TableOverview from './components/TableOverview/TableOverview'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       </div>
 
       {/* Table Here */}
+      <TableOverview />
     </main>
-  );
+  )
 }
