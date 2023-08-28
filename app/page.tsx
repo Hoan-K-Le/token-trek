@@ -1,5 +1,4 @@
 "use client";
-
 import ChartContainer from "./components/Charts/ChartContainer";
 import LineChart from "./components/Charts/LineChart";
 import BarChart from "./components/Charts/BarChart";
@@ -11,7 +10,7 @@ export default function Home() {
         <h2 className="text-xl mb-7">Your overview</h2>
       </header>
 
-      <div className="flex gap-11">
+      <div className="flex gap-11 mb-16">
         <ChartContainer name="BTC" price="13.431 mln" date="Aug 25, 2023">
           <LineChart />
         </ChartContainer>
