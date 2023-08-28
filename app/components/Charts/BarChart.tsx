@@ -26,7 +26,7 @@ const options = {
   },
 };
 
-const ChartsOverview = () => {
+export default function BarChart() {
   const [bitcoinPriceVolumes, setBitcoinPriceVolumes] = useState<number[]>([]);
   const [bitcoinVolumeDates, setBitcoinVolumeDates] = useState<number[]>([]);
 
@@ -70,10 +70,8 @@ const ChartsOverview = () => {
   };
 
   return (
-    <>
-      <Bar data={data} options={options} />
-    </>
+    <div>
+      <Bar className="h-72 w-[653px]" data={data} options={options} />
+    </div>
   );
-};
-
-export default ChartsOverview;
+}
