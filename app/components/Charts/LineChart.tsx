@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
@@ -59,39 +59,6 @@ const ChartsOverview = () => {
   const currentTheme = localStorage.getItem("theme");
   const borderColor = currentTheme === "dark" ? "#00FC2A" : "#3D63EC";
 
-  const setBackgroundColor = () => {
-    if (!canvasRef.current) {
-      return null;
-    }
-    const ctx = canvasRef.current.getContext("2d");
-    if (!ctx) {
-      return null;
-    }
-
-    const chartArea = {
-      top: 0,
-      bottom: canvasRef.current.height,
-    };
-
-    const gradient = ctx.createLinearGradient(
-      0,
-      chartArea.bottom,
-      0,
-      chartArea.top
-    );
-    if (currentTheme === "dark") {
-      gradient.addColorStop(0, "#192021"); // Start color
-      gradient.addColorStop(0.4, "#23322E"); // Mid color
-      gradient.addColorStop(1, "#37413F"); // End color
-    } else if (currentTheme === "light") {
-      gradient.addColorStop(0, "#F9FAFF"); // Start color
-      gradient.addColorStop(0.4, "#ECF0FD"); // Mid color
-      gradient.addColorStop(1, "#D9E1FB"); // End color
-    }
-
-    return gradient;
-  };
-
   const data = {
     labels: bitcoinPriceLabels,
     datasets: [
@@ -103,7 +70,38 @@ const ChartsOverview = () => {
         pointStyle: "circle",
         pointRadius: 0,
         tension: 0.4,
-        backgroundColor: setBackgroundColor(),
+        backgroundColor: () => {
+          if (!canvasRef.current) {
+            return null;
+          }
+          const ctx = canvasRef.current.getContext("2d");
+          if (!ctx) {
+            return null;
+          }
+
+          const chartArea = {
+            top: 0,
+            bottom: canvasRef.current.height,
+          };
+
+          const gradient = ctx.createLinearGradient(
+            0,
+            chartArea.bottom,
+            0,
+            chartArea.top
+          );
+          if (currentTheme === "dark") {
+            gradient.addColorStop(0, "#192021"); // Start color
+            gradient.addColorStop(0.4, "#23322E"); // Mid color
+            gradient.addColorStop(1, "#37413F"); // End color
+          } else if (currentTheme === "light") {
+            gradient.addColorStop(0, "#F9FAFF"); // Start color
+            gradient.addColorStop(0.4, "#ECF0FD"); // Mid color
+            gradient.addColorStop(1, "#D9E1FB"); // End color
+          }
+
+          return gradient;
+        },
       },
     ],
   };
