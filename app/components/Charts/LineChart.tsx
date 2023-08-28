@@ -28,7 +28,7 @@ const options = {
   },
 };
 
-const ChartsOverview = () => {
+export default function LineChart() {
   const [bitcoinPrices, setBitcoinPrices] = useState<number[]>([]);
   const [bitcoinPriceDates, setBitcoinPriceDates] = useState<number[]>([]);
 
@@ -77,10 +77,8 @@ const ChartsOverview = () => {
   };
 
   return (
-    <>
+    <div>
       <Line data={data} options={options} />
-    </>
+    </div>
   );
-};
-
-export default ChartsOverview;
+}
