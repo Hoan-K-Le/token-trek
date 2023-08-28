@@ -11,6 +11,7 @@ import CirculatingSupply from './CirculatingSupply/CirculatingSupply'
 import CoinRank from './CoinRank/CoinRank'
 import CoinPrice from './CoinPrice/CoinPrice'
 import { TableDataProps } from './TableDataProps/TableDataProps'
+
 import {
   Chart as ChartJS,
   Title,
@@ -19,55 +20,53 @@ import {
   LinearScale,
   CategoryScale,
   PointElement,
-} from 'chart.js'
+} from "chart.js";
 ChartJS.register(
   Title,
-
   LineElement,
   Legend,
   CategoryScale,
   LinearScale,
-  PointElement
-)
-
+  PointElement)
+  
 export default function TableOverview() {
-  const [tableData, setTableData] = useState<TableDataProps[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [tableData, setTableData] = useState<TableDataProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const fetchData = async () => {
     try {
-      setIsLoading(true)
-      const data = await Tables()
-      setTableData(data)
-      setIsLoading(false)
+      setIsLoading(true);
+      const data = await Tables();
+      setTableData(data);
+      setIsLoading(false);
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [])
+    fetchData();
+  }, []);
 
   const makeChart = (chartData: number[], avgData: number): any => {
     const data = {
-      labels: new Array(chartData?.length).fill(''),
+      labels: new Array(chartData?.length).fill(""),
       datasets: [
         {
-          label: '',
+          label: "",
           data: chartData,
           fill: false,
-          borderColor: avgData < 0 ? 'red' : 'green',
+          borderColor: avgData < 0 ? "red" : "green",
           pointRadius: 0,
           borderWidth: 2,
           tension: 0.4,
-          pointBackgroundColor: 'transparent',
-          pointBorderColor: 'transparent',
+          pointBackgroundColor: "transparent",
+          pointBorderColor: "transparent",
           hoverPointRadius: 0,
         },
       ],
-    }
-    return data
-  }
+    };
+    return data;
+  };
   const options = {
     plugins: {
       legend: {
@@ -91,27 +90,27 @@ export default function TableOverview() {
       responsive: true,
     },
     bezierCurve: false,
-  }
+  };
 
   const getAverageData = (data: number): string => {
-    return data < 0 ? 'text-red-600' : 'text-green-600'
-  }
+    return data < 0 ? "text-red-600" : "text-green-600";
+  };
 
   const progressBar = (dataOne: number, dataTwo: number): string => {
-    const result = (dataOne / dataTwo) * 100
-    return result.toString()
-  }
+    const result = (dataOne / dataTwo) * 100;
+    return result.toString();
+  };
 
   const formatNumber = (number: number) => {
     if (number >= 1e9) {
-      return (number / 1e9).toFixed(1) + 'B'
+      return (number / 1e9).toFixed(1) + "B";
     } else if (number >= 1e6) {
-      return (number / 1e6).toFixed(1) + 'M'
+      return (number / 1e6).toFixed(1) + "M";
     } else if (number >= 1e3) {
-      return (number / 1e3).toFixed(1) + 'K'
+      return (number / 1e3).toFixed(1) + "K";
     }
-    return number.toString()
-  }
+    return number.toString();
+  };
 
   return (
     <>
@@ -130,6 +129,7 @@ export default function TableOverview() {
                   <CoinName coin={coin} />
                   <CoinPrice coin={coin} />
                   <CoinAvg coin={coin} getAverageData={getAverageData} />
+
                   <td className="py-4 w-1/6">
                     <div className="flex flex-col w-4/5">
                       <CirculatingSupply
@@ -139,6 +139,7 @@ export default function TableOverview() {
                       <ProgressBar coin={coin} progressBar={progressBar} />
                     </div>
                   </td>
+                
                   <td className="py-4 w-1/6">
                     <div className="w-4/5 flex flex-col">
                       <VolumeMarket coin={coin} formatNumber={formatNumber} />
@@ -162,5 +163,5 @@ export default function TableOverview() {
         </table>
       </div>
     </>
-  )
+  );
 }
