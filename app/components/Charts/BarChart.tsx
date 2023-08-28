@@ -58,9 +58,7 @@ const ChartsOverview = () => {
   const backgroundColor = currentTheme === "dark" ? "#2172E5" : "#1AD761";
 
   const data = {
-    labels: bitcoinVolumeDates.map((date) =>
-      new Date(date).getDate().toString()
-    ),
+    labels: bitcoinVolumeDates.map((date) => new Date(date).getDate()),
     datasets: [
       {
         fill: true,
