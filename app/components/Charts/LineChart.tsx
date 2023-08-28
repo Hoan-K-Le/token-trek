@@ -32,10 +32,6 @@ const ChartsOverview = () => {
   const [bitcoinPrices, setBitcoinPrices] = useState<number[]>([]);
   const [bitcoinPriceDates, setBitcoinPriceDates] = useState<number[]>([]);
 
-  const bitcoinPriceLabels = bitcoinPriceDates.map((date) =>
-    new Date(date).getDate().toString()
-  );
-
   const getBitcoinPrices = async () => {
     try {
       const { data } = await axios.get(
@@ -65,7 +61,7 @@ const ChartsOverview = () => {
     currentTheme === "dark" ? gradientColorsDark : gradientColorsLight;
 
   const data = {
-    labels: bitcoinPriceLabels,
+    labels: bitcoinPriceDates.map((date) => new Date(date).getDate()),
     datasets: [
       {
         fill: true,
