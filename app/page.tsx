@@ -2,6 +2,7 @@
 
 import ChartContainer from "./components/Charts/ChartContainer";
 import LineChart from "./components/Charts/LineChart";
+import BarChart from "./components/Charts/BarChart";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
           price="807.24 bln"
           date="Aug 25, 2023"
         >
-          <LineChart />
+          <BarChart />
         </ChartContainer>
       </div>
 
