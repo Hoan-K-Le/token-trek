@@ -12,8 +12,8 @@ export default function ChartContainer({
   date,
 }: ChartContainerProps) {
   return (
-    <div className="bg-white100 dark:bg-slate900 relative flex justify-center gap-7 w-1/2 max-h-96 mb-20 py-4 rounded-lg">
-      <div className="absolute left-3">
+    <div className="bg-white100 dark:bg-slate900 w-1/2 pt-4 pr-24 rounded-lg pb-10 pl-5 ">
+      <div>
         <p className="text-lg">{name}</p>
         <p className="text-4xl">{`$${price}`}</p>
         <p className="text-lg">{date}</p>
