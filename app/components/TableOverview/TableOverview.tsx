@@ -11,6 +11,7 @@ import CirculatingSupply from './CirculatingSupply/CirculatingSupply'
 import CoinRank from './CoinRank/CoinRank'
 import CoinPrice from './CoinPrice/CoinPrice'
 import { TableDataProps } from './TableDataProps/TableDataProps'
+import Api from '../api/ApiFetch'
 import {
   Chart as ChartJS,
   Title,
@@ -31,21 +32,23 @@ ChartJS.register(
 )
 
 export default function TableOverview() {
-  const [tableData, setTableData] = useState<TableDataProps[]>([])
+  const [coins, setCoins] = useState<TableDataProps[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const fetchData = async () => {
+
+  const getData = async () => {
     try {
-      setIsLoading(true)
-      const data = await Tables()
-      setTableData(data)
-      setIsLoading(false)
+      const { data }: any = await Api(
+        '/coins/markets',
+        '?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
+      )
+      setCoins(data)
     } catch (err) {
       console.error(err)
     }
   }
 
   useEffect(() => {
-    fetchData()
+    getData()
   }, [])
 
   const makeChart = (chartData: number[], avgData: number): any => {
@@ -123,8 +126,8 @@ export default function TableOverview() {
         <table className="w-full relative">
           <TableHeader />
           <tbody className="">
-            {tableData &&
-              tableData.map((coin: TableDataProps) => (
+            {coins &&
+              coins.map((coin: TableDataProps) => (
                 <tr key={`tr${coin.id}`} className="border-b-[1px] w-full">
                   <CoinRank coin={coin} />
                   <CoinName coin={coin} />

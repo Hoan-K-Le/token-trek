@@ -1,7 +1,11 @@
+'use client'
+import { useState, useEffect } from 'react'
 import ChartsOverview from './components/ChartsOverview/Charts'
 import TableOverview from './components/TableOverview/TableOverview'
 
 export default function Home() {
+  const [currency, setCurrency] = useState<string>('')
+  const currencyChange = (base: number, quote: number) => {}
   return (
     <main className="bg-grey100 dark:bg-slate700 max-w-8xl px-24 pt-20 mx-auto">
       <header>

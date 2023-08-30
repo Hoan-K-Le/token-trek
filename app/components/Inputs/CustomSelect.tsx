@@ -1,4 +1,4 @@
-import Icon from "../Icon/Icon";
+import Icon from '../Icon/Icon'
 
 export default function CustomSelect() {
   return (
@@ -22,5 +22,5 @@ export default function CustomSelect() {
         </ul>
       </div>
     </div>
-  );
+  )
 }

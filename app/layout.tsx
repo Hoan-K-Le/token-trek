@@ -2,11 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Providers from "./providers";
-import PageLink from "./components/links/PageLink";
-import Icon from "./components/Icon/Icon";
-import FormInput from "./components/Inputs/FormInput";
-import CustomSelect from "./components/Inputs/CustomSelect";
-import ThemeButton from "./components/Buttons/Theme/Theme";
+import NavBar from "./components/NavBar/NavBar";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -27,39 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className}  pt-5 px-2`}>
         <Providers>
-          <nav className="font-medium flex items-center justify-between max-w-8xl pl-24 mb-4 mx-auto">
-            <ul className="text-1xl flex">
-              <li>
-                <PageLink id="coinsLink" href="/" text="Coins" />
-              </li>
-              <li>
-                <PageLink
-                  id="portfolioLink"
-                  href="../pages/Portfolio"
-                  text="Portfolio"
-                />
-              </li>
-            </ul>
-
-            <form className=" flex gap-5" action="">
-              <div className="relative flex items-center">
-                <Icon
-                  className="text-xl absolute ml-2.5"
-                  iconVariant="search"
-                />
-                <FormInput
-                  label="Search"
-                  id="search"
-                  type="text"
-                  name="search"
-                  placeholder="Search"
-                />
-              </div>
-
-              <CustomSelect />
-              <ThemeButton />
-            </form>
-          </nav>
+        <NavBar />
           {children}
         </Providers>
       </body>
