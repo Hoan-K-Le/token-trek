@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,7 +9,7 @@ import {
   LineElement,
   Filler,
 } from "chart.js";
-
+import { getBitcoinPrices } from "@/app/contexts/Charts";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
 
 const options = {
@@ -36,15 +35,13 @@ export default function LineChart() {
   const [bitcoinPrices, setBitcoinPrices] = useState<number[]>([]);
   const [bitcoinPriceDates, setBitcoinPriceDates] = useState<number[]>([]);
 
-  const getBitcoinPrices = async () => {
+  const fetchChartData = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
+      const chartData = await getBitcoinPrices();
+      const prices = chartData.prices.map(
+        (price: [number, number]) => price[1]
       );
-
-      const prices = data.prices.map((price: [number, number]) => price[1]);
-      const dates = data.prices.map((price: [number, number]) => price[0]);
-
+      const dates = chartData.prices.map((price: [number, number]) => price[0]);
       setBitcoinPrices(prices);
       setBitcoinPriceDates(dates);
     } catch (err) {
@@ -53,12 +50,11 @@ export default function LineChart() {
   };
 
   useEffect(() => {
-    getBitcoinPrices();
+    fetchChartData();
   }, []);
 
   const currentTheme = localStorage.getItem("theme");
   const borderColor = currentTheme === "dark" ? "#00FC2A" : "#3D63EC";
-
   const gradientColorsDark = ["#192021", "#23322E", "#37413F"];
   const gradientColorsLight = ["#F9FAFF", "#ECF0FD", "#D9E1FB"];
   const gradientColor =

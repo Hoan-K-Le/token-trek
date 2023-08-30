@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -8,7 +7,7 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
-
+import { getBitcoinPrices } from "@/app/contexts/Charts";
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const options = {
@@ -34,19 +33,15 @@ export default function BarChart() {
   const [bitcoinPriceVolumes, setBitcoinPriceVolumes] = useState<number[]>([]);
   const [bitcoinVolumeDates, setBitcoinVolumeDates] = useState<number[]>([]);
 
-  const getBitcoinPriceVolumes = async () => {
+  const fetchChartData = async () => {
     try {
-      const { data } = await axios.get(
-        "https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=180&interval=daily"
-      );
-
-      const Volumes = data.total_volumes.map(
+      const chartData = await getBitcoinPrices();
+      const Volumes = chartData.total_volumes.map(
         (volumes: [number, number]) => volumes[1]
       );
-      const dates = data.total_volumes.map(
+      const dates = chartData.total_volumes.map(
         (volumes: [number, number]) => volumes[0]
       );
-
       setBitcoinPriceVolumes(Volumes);
       setBitcoinVolumeDates(dates);
     } catch (err) {
@@ -55,7 +50,7 @@ export default function BarChart() {
   };
 
   useEffect(() => {
-    getBitcoinPriceVolumes();
+    fetchChartData();
   }, []);
 
   const currentTheme = localStorage.getItem("theme");
