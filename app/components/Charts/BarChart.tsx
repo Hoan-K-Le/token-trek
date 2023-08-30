@@ -13,7 +13,11 @@ ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const options = {
   responsive: true,
-  plugins: {},
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
   scales: {
     x: {
       grid: {

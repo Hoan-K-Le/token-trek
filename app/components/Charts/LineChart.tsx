@@ -15,7 +15,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
 
 const options = {
   responsive: true,
-  plugins: {},
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
   scales: {
     x: {
       grid: {
