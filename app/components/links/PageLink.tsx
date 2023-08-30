@@ -1,25 +1,26 @@
-"use client";
-import React, { useRef, useEffect } from "react";
-import Link from "next/link";
+'use client'
+import React, { useRef, useEffect } from 'react'
+import Link from 'next/link'
 
 type PageLinkProps = {
-  text: string;
-  href: string;
-  id: string;
-} & React.ComponentProps<"a">;
+  text?: string
+  href: string
+  id?: string
+  children?: React.ReactNode
+} & React.ComponentProps<'a'>
 
-export default function PageLink({ text, href, id }: PageLinkProps) {
-  const linkRef = useRef<HTMLAnchorElement | null>(null);
+export default function PageLink({ text, href, id, children }: PageLinkProps) {
+  const linkRef = useRef<HTMLAnchorElement | null>(null)
 
   useEffect(() => {
     const focusLinkId =
-      window.location.pathname === "/" ? "coinsLink" : "portfolioLink";
+      window.location.pathname === '/' ? 'coinsLink' : 'portfolioLink'
     if (linkRef.current) {
       if (linkRef.current.id === id && linkRef.current.id === focusLinkId) {
-        linkRef.current.focus();
+        linkRef.current.focus()
       }
     }
-  }, [id]);
+  }, [id])
 
   return (
     <Link
@@ -29,6 +30,7 @@ export default function PageLink({ text, href, id }: PageLinkProps) {
       href={href}
     >
       {text}
+      {children}
     </Link>
-  );
+  )
 }

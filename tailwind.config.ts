@@ -21,8 +21,17 @@ const config: Config = {
         "3.5xl": "52.1875rem",
         "8xl": "118.75rem",
       },
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px'
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };
 export default config;

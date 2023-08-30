@@ -2,6 +2,8 @@
 import ChartContainer from "./components/Charts/ChartContainer";
 import LineChart from "./components/Charts/LineChart";
 import BarChart from "./components/Charts/BarChart";
+import ChartsOverview from "./components/ChartsOverview/Charts";
+import TableOverview from "./components/TableOverview/TableOverview";
 
 export default function Home() {
   return (
@@ -25,6 +27,7 @@ export default function Home() {
       </div>
 
       {/* Table Here */}
+      <TableOverview />
     </main>
   );
 }
