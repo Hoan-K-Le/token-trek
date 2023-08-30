@@ -9,7 +9,7 @@ import {
   LineElement,
   Filler,
 } from "chart.js";
-import { getBitcoinPrices } from "@/app/contexts/Charts";
+import { getBitcoinData } from "@/app/contexts/Charts";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Filler);
 
 const options = {
@@ -37,7 +37,7 @@ export default function LineChart() {
 
   const fetchChartData = async () => {
     try {
-      const chartData = await getBitcoinPrices();
+      const chartData = await getBitcoinData();
       const prices = chartData.prices.map(
         (price: [number, number]) => price[1]
       );

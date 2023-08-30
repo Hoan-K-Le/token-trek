@@ -7,7 +7,7 @@ import {
   LinearScale,
   BarElement,
 } from "chart.js";
-import { getBitcoinPrices } from "@/app/contexts/Charts";
+import { getBitcoinData } from "@/app/contexts/Charts";
 ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const options = {
@@ -35,7 +35,7 @@ export default function BarChart() {
 
   const fetchChartData = async () => {
     try {
-      const chartData = await getBitcoinPrices();
+      const chartData = await getBitcoinData();
       const Volumes = chartData.total_volumes.map(
         (volumes: [number, number]) => volumes[1]
       );
