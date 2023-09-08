@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState, useRef } from 'react'
-import { Tables } from '@/app/contexts/Tables'
 import { Line } from 'react-chartjs-2'
 import TableHeader from './TableHeader/TableHeader'
 import CoinName from './CoinName/CoinName'
@@ -23,7 +22,6 @@ import {
 } from 'chart.js'
 ChartJS.register(
   Title,
-
   LineElement,
   Legend,
   CategoryScale,
@@ -133,6 +131,7 @@ export default function TableOverview() {
                   <CoinName coin={coin} />
                   <CoinPrice coin={coin} />
                   <CoinAvg coin={coin} getAverageData={getAverageData} />
+
                   <td className="py-4 w-1/6">
                     <div className="flex flex-col w-4/5">
                       <CirculatingSupply
@@ -142,6 +141,7 @@ export default function TableOverview() {
                       <ProgressBar coin={coin} progressBar={progressBar} />
                     </div>
                   </td>
+
                   <td className="py-4 w-1/6">
                     <div className="w-4/5 flex flex-col">
                       <VolumeMarket coin={coin} formatNumber={formatNumber} />

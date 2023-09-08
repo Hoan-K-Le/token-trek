@@ -18,4 +18,5 @@ async function Api(url: string, search: string) {
     return response
   }
 }
+
 export default Api
