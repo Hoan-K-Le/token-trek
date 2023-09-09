@@ -7,10 +7,6 @@ import BarChart from './components/Charts/BarChart'
 import TableOverview from './components/TableOverview/TableOverview'
 
 export default function Home() {
-  const currencyChange = (base: number, quote: number) => {
-    return base * quote
-  }
-
   return (
     <main className="bg-grey100 dark:bg-slate700 max-w-8xl mx-auto px-24 pt-20">
       <header>
