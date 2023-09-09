@@ -1,7 +1,7 @@
 type ChartContainerProps = {
   children: React.ReactNode;
   name: string;
-  price: string;
+  price: number | string;
   date: string;
 };
 

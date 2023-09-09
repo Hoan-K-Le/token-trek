@@ -22,11 +22,11 @@ const options = {
   scales: {
     x: {
       grid: {
-        display: false, // Removes the background grid lines for X-axis
+        display: false,
       },
     },
     y: {
-      display: false, // Removes the numbers for the y-axis
+      display: false,
     },
   },
 };
@@ -38,10 +38,31 @@ export default function LineChart() {
   const fetchChartData = async () => {
     try {
       const chartData = await getBitcoinData();
-      const prices = chartData.prices.map(
-        (price: [number, number]) => price[1]
-      );
-      const dates = chartData.prices.map((price: [number, number]) => price[0]);
+
+      function timestampToDate(timestamp) {
+        const date = new Date(timestamp);
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, options);
+      }
+
+      const currentMonth = new Date().toLocaleDateString(undefined, {
+        month: "long",
+      });
+
+      const matchingData = [];
+
+      for (const entry of chartData.prices) {
+        const timestamp = entry[0];
+        const dateStr = timestampToDate(timestamp);
+        const entryMonth = dateStr.split(" ")[0];
+
+        if (entryMonth === currentMonth) {
+          matchingData.push(entry);
+        }
+      }
+
+      const prices = matchingData.map((price: [number, number]) => price[1]);
+      const dates = matchingData.map((price: [number, number]) => price[0]);
       setBitcoinPrices(prices);
       setBitcoinPriceDates(dates);
     } catch (err) {
@@ -61,7 +82,9 @@ export default function LineChart() {
     currentTheme === "dark" ? gradientColorsDark : gradientColorsLight;
 
   const data = {
-    labels: bitcoinPriceDates.map((date) => new Date(date).getDate()),
+    labels: bitcoinPriceDates.map((date: string | number | Date) =>
+      new Date(date).getDate()
+    ),
     datasets: [
       {
         fill: true,
