@@ -9,6 +9,9 @@ import { getBitcoinData } from "@/app/contexts/Charts";
 export default function Home() {
   const [todaysPrice, setTodaysPrice] = useState<number>(0);
   const [todaysVolume, setTodaysVolume] = useState<number>(0);
+    
+  const currencyChange = (base: number, quote: number) => {
+  return base * quote
 
   // Function to convert a timestamp to a formatted date string
   function timestampToDate(timestamp: string | number | Date) {
@@ -92,5 +95,5 @@ export default function Home() {
 
       <TableOverview />
     </main>
-  );
+  )
 }

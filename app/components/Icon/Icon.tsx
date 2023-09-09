@@ -3,8 +3,9 @@ import {
   PiCurrencyDollarSimpleBold,
   PiCaretUpBold,
   PiCaretDownBold,
+  PiCurrencyGbpLight,
 } from 'react-icons/pi'
-import { BiSolidChevronDown } from 'react-icons/bi'
+import { BiSolidChevronDown, BiDollar, BiEuro } from 'react-icons/bi'
 import { BsSunFill, BsMoonFill } from 'react-icons/bs'
 
 type Icons = {
@@ -19,6 +20,8 @@ const icons: Icons = {
   moon: BsMoonFill,
   arrowUp: PiCaretUpBold,
   arrowDown: PiCaretDownBold,
+  euro: BiEuro,
+  gbp: PiCurrencyGbpLight,
 }
 
 type props = {
