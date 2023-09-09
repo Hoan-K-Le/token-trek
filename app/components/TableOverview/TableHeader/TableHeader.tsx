@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React from "react";
 const TableHeader = () => {
   return (
     <thead className=" sticky h-[3rem] bg-slate900">
@@ -15,7 +14,7 @@ const TableHeader = () => {
         <th className="">Last 7d *</th>
       </tr>
     </thead>
-  )
-}
+  );
+};
 
-export default TableHeader
+export default TableHeader;
