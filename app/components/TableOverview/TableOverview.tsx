@@ -161,7 +161,10 @@ export default function TableOverview() {
             <tbody className="">
               {coins &&
                 coins.map((coin: TableDataProps) => (
-                  <tr key={`tr${coin.id}`} className="border-b-[1px] w-full">
+                  <tr
+                    key={`${Math.random() + coin.id}`}
+                    className="border-b-[1px] w-full"
+                  >
                     <CoinRank coin={coin} />
                     <CoinName coin={coin} />
                     <CoinPrice coin={coin} />
