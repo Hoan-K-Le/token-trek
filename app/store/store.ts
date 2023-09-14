@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useSelector, TypedUseSelectorHook } from 'react-redux'
-import currencyReducer from './CurrencyReducer/currencyReducer'
+import currencyReducer from './CurrencyReducer'
+import coinsReducer from './CoinsData'
 
 export const store = configureStore({
   reducer: {
     currency: currencyReducer,
+    coins: coinsReducer,
   },
 })
 

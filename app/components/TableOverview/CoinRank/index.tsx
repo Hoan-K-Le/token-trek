@@ -1,5 +1,5 @@
 import React from 'react'
-import { TableDataProps } from '../TableDataProps/TableDataProps'
+import { TableDataProps } from '../TableDataProps'
 
 function CoinRank({ coin }: { coin: TableDataProps }) {
   return (

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import PageLink from '../../links/PageLink'
-import { TableDataProps } from '../TableDataProps/TableDataProps'
+import { TableDataProps } from '../TableDataProps'
 
 const CoinName = ({ coin }: { coin: TableDataProps }) => {
   return (

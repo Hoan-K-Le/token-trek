@@ -51,11 +51,7 @@ const CoinPage = ({ params }: Params) => {
       console.error(error)
     }
   }
-  const currentCurrency = useAppSelector(
-    state => state.currency.selectedCurrency
-  )
-  // Grabbing initial currencies State "region: 'USD', rate: 1"
-  const currencies = useAppSelector(state => state.currency.currencies)
+  const currentCurrency = useAppSelector(state => state.currency.currencies)
 
   useEffect(() => {
     fetchData()
@@ -192,7 +188,6 @@ const CoinPage = ({ params }: Params) => {
             <button onClick={handleSwitchInput}>reverse</button>
             <div className="flex gap-2">
               <label htmlFor={symbol}>{symbol}</label>
-
               <input
                 id={symbol}
                 type="text"

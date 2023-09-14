@@ -2,14 +2,20 @@
 import { useState, useEffect } from 'react'
 import Icon from '../Icon/Icon'
 import { useAppSelector } from '@/app/store/store'
-import { updateSelectedCurrency } from '@/app/store/CurrencyReducer/currencyReducer'
+import { updateSelectedCurrency } from '@/app/store/CurrencyReducer'
 import { useDispatch } from 'react-redux'
+import { fetchCoins } from '@/app/store/CoinsData'
 
 export default function CustomSelect() {
   const [display, setDisplay] = useState<boolean>(false)
-  const [selectedCurrency, setSelectedCurrency] = useState<string>('USD')
-  const currencies = useAppSelector(state => state.currency.currencies)
-  const dispatch = useDispatch()
+  const [currencyList, setCurrencyList] = useState<string[]>([
+    'usd',
+    'eur',
+    'gbp',
+  ])
+  const [selectedCurrency, setSelectedCurrency] = useState<string>('usd')
+  const dispatch = useDispatch<AppDispatch>()
+  const currentData = useAppSelector(state => state.coins.coins)
   const handleChange = () => {
     setDisplay(prevState => !prevState)
   }
@@ -19,6 +25,10 @@ export default function CustomSelect() {
     dispatch(updateSelectedCurrency(currency))
     setDisplay(false)
   }
+
+  useEffect(() => {
+    dispatch(fetchCoins(selectedCurrency))
+  }, [selectedCurrency])
 
   return (
     <div className="bg-grey100 dark:bg-slate700 relative py-2.5 px-3 rounded-lg">
@@ -36,14 +46,14 @@ export default function CustomSelect() {
         }  `}
       >
         <ul className="text-center">
-          {currencies.length > 0 &&
-            currencies.map(currency => (
-              <li key={`curr${currency.region}`}>
+          {currencyList.length > 0 &&
+            currencyList.map(currency => (
+              <li key={`curr${currency}`}>
                 <button
-                  value={currency.region}
-                  onClick={() => handleCurrencyChange(currency.region)}
+                  value={currency}
+                  onClick={() => handleCurrencyChange(currency)}
                 >
-                  {currency.region}
+                  {currency}
                 </button>
               </li>
             ))}

@@ -6,6 +6,7 @@ export type TableDataProps = {
   price_change_percentage_24h_in_currency: number
   price_change_percentage_7d_in_currency: number
   market_cap_rank: number
+  market_cap_change_24h: number
   symbol: string
   sparkline_in_7d: { price: number[] }
   image: string

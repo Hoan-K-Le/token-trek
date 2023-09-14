@@ -1,6 +1,6 @@
 import React from 'react'
 import Icon from '../../Icon/Icon'
-import { TableDataProps } from '../TableDataProps/TableDataProps'
+import { TableDataProps } from '../TableDataProps'
 const CoinAvg = ({
   coin,
   getAverageData,

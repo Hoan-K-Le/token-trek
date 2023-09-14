@@ -40,7 +40,7 @@ const NavBar = () => {
 
   useEffect(() => {
     fetchData()
-  }, [query, list])
+  }, [])
   return (
     <nav className="font-medium flex items-center justify-between max-w-8xl pl-24 mb-4 mx-auto">
       <ul className="text-1xl flex">
@@ -70,16 +70,20 @@ const NavBar = () => {
           <div className="flex flex-col absolute top-16 h-72  scrollbar-thin scrollbar-slate700 overflow-y-auto">
             {query === ''
               ? ''
-              : list.map((coin: any, i) => (
-                  <ul className=" flex items-center justify-center flex-col">
-                    <PageLink href={`../CoinDetail/${coin.id}`}>
-                      <li>{i < 10 ? coin.name : ''}</li>
-                    </PageLink>
-                  </ul>
-                ))}
+              : list
+                  .filter((coin, i) => i < 10)
+                  .map((coin: any, i) => (
+                    <ul
+                      key={`${Math.random() + coin.id}`}
+                      className=" flex items-center justify-center flex-col"
+                    >
+                      <PageLink href={`../CoinDetail/${coin.id}`}>
+                        <li>{coin.name}</li>
+                      </PageLink>
+                    </ul>
+                  ))}
           </div>
         </div>
-
         <CustomSelect />
         <ThemeButton />
       </form>

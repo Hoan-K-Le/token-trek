@@ -3,16 +3,19 @@ import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import { Line } from 'react-chartjs-2'
 import TableHeader from './TableHeader/TableHeader'
-import CoinName from './CoinName/CoinName'
-import CoinAvg from './CoinAvg/CoinAvg'
+import CoinName from './CoinName'
+import CoinAvg from './CoinAvg'
 import ProgressBar from '../ProgressBar/ProgressBar'
-import VolumeMarket from './VolumeMarket/VolumeMarket'
-import CirculatingSupply from './CirculatingSupply/CirculatingSupply'
-import CoinRank from './CoinRank/CoinRank'
-import CoinPrice from './CoinPrice/CoinPrice'
-import { TableDataProps } from './TableDataProps/TableDataProps'
+import CirculatingSupply from './CirculatingSupply'
+import VolumeMarket from './VolumeMarket'
+import CoinRank from './CoinRank'
+import CoinPrice from './CoinPrice'
+import { TableDataProps } from './TableDataProps'
+import { fetchCoins } from '@/app/store/CoinsData'
 import Api from '../api/ApiFetch'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { useDispatch } from 'react-redux'
+import { useAppSelector } from '@/app/store/store'
 import {
   Chart as ChartJS,
   Title,
@@ -22,6 +25,7 @@ import {
   CategoryScale,
   PointElement,
 } from 'chart.js'
+import { current } from '@reduxjs/toolkit'
 ChartJS.register(
   Title,
   LineElement,
@@ -34,35 +38,37 @@ ChartJS.register(
 export default function TableOverview() {
   const [coins, setCoins] = useState<TableDataProps[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const getData = async () => {
-    try {
-      const { data }: any = await Api(
-        '/coins/markets',
-        '?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
-      )
-      setCoins(data)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const fetchMoreData = (): void => {
-    setTimeout(async () => {
-      try {
-        const { data }: any = await axios.get(
-          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=2&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-        )
-        setCoins(prevState => [...prevState, ...data])
-      } catch (err) {
-        console.error(err)
-      }
-    }, 1500)
-  }
+  const dispatch = useDispatch()
+  const currentCurrency = useAppSelector(state => state.currency.currencies)
+  const coinsData = useAppSelector(state => state.coins.coins)
+  // const getData = async () => {
+  //   try {
+  //     const { data }: any = await Api(
+  //       '/coins/markets',
+  //       '?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'
+  //     )
+  //     setCoins(data)
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+  // const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+  // const fetchMoreData = async () => {
+  //   try {
+  //     await delay(5000)
+  //     const { data }: any = await axios.get(
+  //       `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=2&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+  //     )
+  //     setCoins(prevState => [...prevState, ...data])
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
 
   useEffect(() => {
-    getData()
-    fetchMoreData()
+    // dispatch(fetchCoins(currency))
+    // getData()
+    // fetchMoreData()
   }, [])
 
   const makeChart = (
@@ -132,7 +138,10 @@ export default function TableOverview() {
     return result.toString()
   }
 
-  const formatNumber = (number: number) => {
+  const formatNumber = (number: number): string => {
+    if (number < 0) {
+      return `-${formatNumber(-number)}`
+    }
     if (number >= 1e9) {
       return (number / 1e9).toFixed(1) + 'B'
     } else if (number >= 1e6) {
@@ -140,8 +149,19 @@ export default function TableOverview() {
     } else if (number >= 1e3) {
       return (number / 1e3).toFixed(1) + 'K'
     }
+
     return number.toString()
   }
+
+  const getSymbol = () => {
+    return currentCurrency === 'usd'
+      ? '$'
+      : currentCurrency === 'eur'
+      ? '€'
+      : '£'
+  }
+
+  const symbol = getSymbol()
 
   return (
     <>
@@ -150,59 +170,64 @@ export default function TableOverview() {
       {/* Container wrapper */}
       <div className="bg-slate900 p-4 mt-4 rounded-xl relative h-[600px] scrollbar-thin scrollbar-slate700 overflow-y-auto ">
         {/* Table */}
-        <InfiniteScroll
+        {/* <InfiniteScroll
           dataLength={coins.length}
           next={fetchMoreData}
           hasMore={true}
           loader={<h4>Loading...</h4>}
-        >
-          <table className="w-full relative">
-            <TableHeader />
-            <tbody className="">
-              {coins &&
-                coins.map((coin: TableDataProps) => (
-                  <tr
-                    key={`${Math.random() + coin.id}`}
-                    className="border-b-[1px] w-full"
-                  >
-                    <CoinRank coin={coin} />
-                    <CoinName coin={coin} />
-                    <CoinPrice coin={coin} />
-                    <CoinAvg coin={coin} getAverageData={getAverageData} />
+        > */}
+        <table className="w-full relative">
+          <TableHeader />
+          <tbody className="">
+            {coinsData &&
+              coinsData.map((coin: TableDataProps) => (
+                <tr
+                  key={`${Math.random() + coin.id}`}
+                  className="border-b-[1px] w-full"
+                >
+                  <CoinRank coin={coin} />
+                  <CoinName coin={coin} />
+                  <CoinPrice coin={coin} getSymbol={getSymbol} />
+                  <CoinAvg coin={coin} getAverageData={getAverageData} />
 
-                    <td className="py-4 w-1/6">
-                      <div className="flex flex-col w-4/5">
-                        <CirculatingSupply
-                          coin={coin}
-                          formatNumber={formatNumber}
-                        />
-                        <ProgressBar coin={coin} progressBar={progressBar} />
-                      </div>
-                    </td>
+                  <td className="py-4 w-1/6">
+                    <div className="flex flex-col w-4/5">
+                      <VolumeMarket
+                        symbol={symbol}
+                        coin={coin}
+                        formatNumber={formatNumber}
+                      />
+                      <ProgressBar coin={coin} progressBar={progressBar} />
+                    </div>
+                  </td>
 
-                    <td className="py-4 w-1/6">
-                      <div className="w-4/5 flex flex-col">
-                        <VolumeMarket coin={coin} formatNumber={formatNumber} />
-                        <ProgressBar coin={coin} progressBar={progressBar} />
-                      </div>
-                    </td>
-                    <td className="">
-                      <div className="w-[150px] h-[100px] flex items-end">
-                        <Line
-                          data={makeChart(
-                            coin,
-                            coin.sparkline_in_7d?.price,
-                            coin.price_change_percentage_7d_in_currency
-                          )}
-                          options={options}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-        </InfiniteScroll>
+                  <td className="py-4 w-1/6">
+                    <div className="w-4/5 flex flex-col">
+                      <CirculatingSupply
+                        symbol={symbol}
+                        coin={coin}
+                        formatNumber={formatNumber}
+                      />
+                      <ProgressBar coin={coin} progressBar={progressBar} />
+                    </div>
+                  </td>
+                  <td className="">
+                    <div className="w-[150px] h-[100px] flex items-end">
+                      <Line
+                        data={makeChart(
+                          coin,
+                          coin.sparkline_in_7d?.price,
+                          coin.price_change_percentage_7d_in_currency
+                        )}
+                        options={options}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        {/* </InfiniteScroll> */}
       </div>
     </>
   )
