@@ -6,9 +6,10 @@ import {
   CategoryScale,
   LinearScale,
   BarElement,
+  Tooltip,
 } from "chart.js";
 import { getBitcoinData } from "@/app/contexts/Charts";
-ChartJS.register(CategoryScale, LinearScale, BarElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const options = {
   responsive: true,
@@ -20,11 +21,11 @@ const options = {
   scales: {
     x: {
       grid: {
-        display: false, // Removes the background grid lines for X-axis
+        display: false,
       },
     },
     y: {
-      display: false, // Removes the numbers for the y-axis
+      display: false,
     },
   },
 };
@@ -36,12 +37,35 @@ export default function BarChart() {
   const fetchChartData = async () => {
     try {
       const chartData = await getBitcoinData();
-      const Volumes = chartData.total_volumes.map(
+
+      function timestampToDate(timestamp) {
+        const date = new Date(timestamp);
+        const options = { year: "numeric", month: "long", day: "numeric" };
+        return date.toLocaleDateString(undefined, options);
+      }
+
+      const currentMonth = new Date().toLocaleDateString(undefined, {
+        month: "long",
+      });
+
+      const matchingData = [];
+
+      for (const entry of chartData.total_volumes) {
+        const timestamp = entry[0];
+        const dateStr = timestampToDate(timestamp);
+        const entryMonth = dateStr.split(" ")[0];
+
+        if (entryMonth === currentMonth) {
+          matchingData.push(entry);
+        }
+      }
+
+      const Volumes = matchingData.map(
         (volumes: [number, number]) => volumes[1]
       );
-      const dates = chartData.total_volumes.map(
-        (volumes: [number, number]) => volumes[0]
-      );
+
+      const dates = matchingData.map((volumes: [number, number]) => volumes[0]);
+
       setBitcoinPriceVolumes(Volumes);
       setBitcoinVolumeDates(dates);
     } catch (err) {
@@ -57,7 +81,9 @@ export default function BarChart() {
   const backgroundColor = currentTheme === "dark" ? "#3D63EC" : "#00FC2A";
 
   const data = {
-    labels: bitcoinVolumeDates.map((date) => new Date(date).getDate()),
+    labels: bitcoinVolumeDates.map((date: string | number | Date) =>
+      new Date(date).getDate()
+    ),
     datasets: [
       {
         fill: true,

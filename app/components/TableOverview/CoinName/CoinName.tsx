@@ -2,7 +2,6 @@
 import React from 'react'
 import PageLink from '../../links/PageLink'
 import { TableDataProps } from '../TableDataProps/TableDataProps'
-
 const CoinName = ({ coin }: { coin: TableDataProps }) => {
   return (
     <td className="pl-2 py-10 flex items-center">
