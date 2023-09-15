@@ -13,14 +13,14 @@ const VolumeMarket: React.FC<VolumeMarketProps> = ({
   formatNumber,
   symbol,
 }) => {
-  console.log(coin.market_cap_change_24h)
   return (
     <div className="flex justify-between">
       <div className="flex items-center gap-1">
         <div className="bg-green-300 rounded-full h-[10px] w-[10px]"></div>
         <span>
           {symbol}
-          {formatNumber(coin.total_volume)}
+          {/* {formatNumber(coin.total_volume)} */}
+          {coin.total_volume}
         </span>
       </div>
       <div>
@@ -28,7 +28,8 @@ const VolumeMarket: React.FC<VolumeMarketProps> = ({
           <div className="bg-yellow-300 rounded-full h-[10px] w-[10px]"></div>
           <span>
             {symbol}
-            {formatNumber(coin.market_cap_change_24h)}
+            {/* {formatNumber(coin.market_cap_change_24h)} */}
+            {coin.market_cap_change_24h}
           </span>
         </div>
       </div>

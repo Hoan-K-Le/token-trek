@@ -3,14 +3,17 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 // limit the api rate request
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
+
 export const fetchCoins = createAsyncThunk(
   'coins/getCoins',
   async (currency: string, thunkAPI) => {
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-    await delay(6000)
-    const { data } = await axios.get(url)
-    return data
+    try {
+      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=50&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+      const { data } = await axios.get(url)
+      return data
+    } catch (error) {
+      console.error(`ERROR FROM FETCHCOINS`, error)
+    }
   }
 )
 

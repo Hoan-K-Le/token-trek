@@ -33,6 +33,7 @@ const options = {
 export default function BarChart() {
   const [bitcoinPriceVolumes, setBitcoinPriceVolumes] = useState<number[]>([])
   const [bitcoinVolumeDates, setBitcoinVolumeDates] = useState<number[]>([])
+  const [currentDate, setCurrentDate] = useState<string>('')
   const currentCurrency = useAppSelector(state => state.currency.currencies)
   const fetchChartData = async () => {
     try {

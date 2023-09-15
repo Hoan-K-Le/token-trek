@@ -28,6 +28,7 @@ export default function CustomSelect() {
 
   useEffect(() => {
     dispatch(fetchCoins(selectedCurrency))
+    console.log('whatver')
   }, [selectedCurrency])
 
   return (
